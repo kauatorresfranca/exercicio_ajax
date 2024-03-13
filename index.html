@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Github</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <span id="avatar"></span>
+            <h1 class="profile-name"><span id="name"></span></h1>
+            <h2 class="profile-username">@kauatorresfranca</h2>
+            <ul class="numbers">
+                <li class="numbers-item">
+                    <h4>Repositórios</h4>
+                    <span id="repositorios"></span>
+                </li>
+                <li class="numbers-item">
+                    <h4>Seguidores</h4>
+                    <span id="seguidores"></span>
+                </li>
+                <li class="numbers-item">
+                    <h4>Seguindo</h4>
+                    <span id="seguindo"></span>
+                </li>
+            </ul>
+            <span id="link"></span>
+        </div>
+    </header>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const name = document.querySelector('#name')
+            const repositorio = document.querySelector('#repositorios')
+            const seguidores = document.querySelector('#seguidores')
+            const seguindo = document.querySelector('#seguindo')
+            const link = document.querySelector('#link')
+            const avatar = document.querySelector('#avatar')
+            fetch('https://api.github.com/users/kauatorresfranca')
+            .then(function(resposta){
+                return resposta.json()
+            })
+            .then(function(json){
+                repositorio.innerText = json.public_repos
+                name.innerText = json.login
+                seguidores.innerText = json.followers
+                seguindo.innerText = json.following
+                link.innerHTML = `<a href="${json.html_url}" class="profile-link">Ver no Github</a>`
+                avatar.innerHTML = `<img class="profile-avatar" src="${json.avatar_url}" alt=".">`
+            })
+        })
+        
+
+    </script>
+</body>
+</html>
